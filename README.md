@@ -2,17 +2,18 @@
 
 # TapLayer
 
-**Every modifier under a finger that is already resting there — on your Mac's
-keyboard, and on the tablet you are driving it from.**
+**Make any keyboard QMK-compatible — mouse included.**
 
-Hold `a s d f j k l ;` for modifiers. Tap them and you get the letter, exactly
-as before.
+Home row mods, layers, and a pointer you drive from the letters — done on the
+Mac instead of in firmware, so the keyboard never has to cooperate. Hold
+`a s d f j k l ;` for modifiers; tap them and you get the letter, exactly as
+before.
 
 **[Download the latest release](https://github.com/js-commit/taplayer-mac/releases/latest)** ·
 **[taplayer site](https://js-commit.github.io/taplayer-mac/)** · macOS 13+ · free
 
 `No network code` · `Records nothing you type` · `One permission` ·
-`No driver, no root` · `~1 MB`
+`No driver, no root` · `Native Swift, under 1 MB`
 
 ---
 
@@ -37,26 +38,29 @@ rewritten into Command, and Caps Lock — which Android *does* forward — becom
 your Escape. Hold that same key and you get the mouse layer. iPadOS is less bad
 about this, but not by much.
 
-### No trackpad in the bag — a mouse you drive from the letters
+### No trackpad in the bag — a free mouse, hiding in the letters
 
 Hold `Esc` and `ijkl` move the pointer with acceleration, `f` left-clicks, `r`
-right-clicks, `y`/`h` scroll, `q`/`w` go back and forward. Enough to actually
-run a Mac. If you carry a
+right-clicks, `y`/`h` scroll, `q`/`w` go back and forward. A whole mouse, and
+you already own the hardware. If you carry a
 [Smart Keyboard Folio](https://support.apple.com/en-us/108361) or any of the
-countless cases and compact boards without a trackpad, you no longer need to
-pack a mouse as well.
+countless cases and compact boards without a trackpad, that is one less thing in
+the bag — and one less thing to reach for.
 
 ### Home row mods without QMK or ZMK
 
 Home row mods are normally a firmware feature, which rules out almost every
 folio case, tablet keyboard and cheap 60% on the market. TapLayer does the work
-on the Mac instead, so the keyboard does not have to cooperate — or even know.
+on the Mac instead, so the keyboard does not have to cooperate — or even know. A
+board that will never see a firmware update behaves like one that just got
+flashed.
 
-### Reading, not just typing
+### Reading, not typing — …and the free mouse has a scroll wheel
 
-Hold `` ` `` and the arrow keys become a scroll wheel, horizontal included,
-gathering speed the longer you hold. Long articles go past without your hand
-leaving the keyboard.
+Hold `` ` `` and the arrow keys become one, horizontal included, gathering speed
+the longer you hold. Long articles and long files go past without your hand
+leaving the keyboard, let alone finding a mouse. That is the part you will use
+every single day.
 
 ## Why not kanata or Karabiner
 
@@ -79,6 +83,21 @@ that. TapLayer sits at the layer they actually arrive on.
 If you only ever type on the Mac's built-in keyboard and want a fully custom
 layout, kanata is worth the afternoon. If you want home row mods to just be
 there, on whatever keyboard you happen to be holding, this is the smaller thing.
+
+## Native Swift — you will forget it is running
+
+One process, written in Swift against AppKit and CoreGraphics — the frameworks
+already sitting on your Mac. No Electron, no Node, no Python, no bundled runtime
+and nothing vendored: `otool -L` on the binary lists Apple's own libraries and
+nothing else.
+
+The whole app is a **400 KB binary** in a **936 KB bundle**. It idles at **0.0%
+CPU**, holds about 30 MB of memory — most of it framework pages it shares with
+every other app — and runs no daemon, no helper process and no driver alongside
+itself. Nothing polls: between your keystrokes, it is asleep.
+
+That is not a brag, it is a requirement. It sits in the path of every key you
+press, all day, on a machine you also want to work on.
 
 ## Privacy
 
