@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- Landing page for the public TapLayer repo. release.sh --site stamps
-     1.1.0, d3c152a8dbdfb68d5ace3c2754ceadd75efcc24ba1f15f5a72398da803289815 and js-commit/taplayer-mac and pushes it to <repo>/docs/.
+     1.1.1 and js-commit/taplayer-mac and pushes it to <repo>/docs/.
      Self-contained on purpose: no fonts, no analytics, no third-party
      anything. A page advertising a keyboard remapper has no business
      phoning home, and saying so is easier when it is simply true. -->
@@ -8,28 +8,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TapLayer — home row mods for macOS</title>
-<meta name="description" content="Hold a s d f j k l ; for modifiers, tap them for letters. Works with iPad and Android keyboards over Jump Desktop.">
+<title>TapLayer — home row mods for macOS, including from an iPad or Android tablet</title>
+<meta name="description" content="Hold a s d f j k l ; for modifiers, tap them for letters. Adds a mouse layer, and fixes the missing Command key when you drive your Mac from a tablet over Jump Desktop.">
 <style>
   :root {
     --bg: #fbfbfa;      --fg: #1a1a18;     --muted: #6b6b66;
     --line: #e3e2dd;    --card: #ffffff;   --accent: #b8532a;
     --key-face: #fff;   --key-edge: #d6d5cf;
+    --good: #2f7d4f;    --bad: #a8402c;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: #16161a;    --fg: #eceae4;     --muted: #9b998f;
       --line: #2b2b32;  --card: #1d1d22;   --accent: #e08a5f;
       --key-face: #24242b; --key-edge: #34343d;
+      --good: #6fbc8c;  --bad: #e0806a;
     }
   }
   :root[data-theme="light"] {
     --bg: #fbfbfa; --fg: #1a1a18; --muted: #6b6b66; --line: #e3e2dd;
     --card: #ffffff; --accent: #b8532a; --key-face: #fff; --key-edge: #d6d5cf;
+    --good: #2f7d4f; --bad: #a8402c;
   }
   :root[data-theme="dark"] {
     --bg: #16161a; --fg: #eceae4; --muted: #9b998f; --line: #2b2b32;
     --card: #1d1d22; --accent: #e08a5f; --key-face: #24242b; --key-edge: #34343d;
+    --good: #6fbc8c; --bad: #e0806a;
   }
 
   html { -webkit-text-size-adjust: 100%; }
@@ -38,13 +42,13 @@
     font: 17px/1.65 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     text-rendering: optimizeLegibility;
   }
-  .wrap { max-width: 47rem; margin: 0 auto; padding: 0 1.5rem 5rem; }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 0 1.5rem 5rem; }
   a { color: var(--accent); }
 
-  header { padding: 5rem 0 3.5rem; text-align: center; }
+  header { padding: 5rem 0 2rem; text-align: center; }
   .logo { font-size: 2.6rem; line-height: 1; margin-bottom: 1rem; }
-  h1 { font-size: 2.6rem; letter-spacing: -0.02em; margin: 0 0 .6rem; font-weight: 640; }
-  .tagline { font-size: 1.2rem; color: var(--muted); margin: 0 auto; max-width: 30rem; }
+  h1 { font-size: 2.7rem; letter-spacing: -0.02em; margin: 0 0 .7rem; font-weight: 640; }
+  .tagline { font-size: 1.2rem; color: var(--muted); margin: 0 auto; max-width: 32rem; }
 
   /* The keycap row is the whole pitch: one key, two meanings. */
   .demo {
@@ -63,7 +67,7 @@
               text-transform: uppercase; margin-top: .1rem; }
   .demo-note { text-align: center; color: var(--muted); font-size: .95rem; margin: 0; }
 
-  .cta { text-align: center; margin: 3rem 0 1rem; }
+  .cta { text-align: center; margin: 2.75rem 0 1rem; }
   .btn {
     display: inline-block; background: var(--accent); color: #fff;
     text-decoration: none; font-weight: 600; font-size: 1.05rem;
@@ -71,9 +75,15 @@
   }
   .btn:hover { filter: brightness(1.08); }
   .sub { color: var(--muted); font-size: .9rem; margin-top: .85rem; }
-  .sub code { font-size: .82rem; word-break: break-all; }
 
-  h2 { font-size: 1.35rem; margin: 3.25rem 0 1rem; letter-spacing: -0.01em; }
+  .lede {
+    font-size: 1.08rem; margin: 2.5rem 0 0; padding-top: 2.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .lede strong { font-weight: 620; }
+
+  h2 { font-size: 1.4rem; margin: 3.5rem 0 .5rem; letter-spacing: -0.01em; }
+  h2 + .sect-note { color: var(--muted); margin: 0 0 1.25rem; }
   h3 { font-size: 1.02rem; margin: 1.75rem 0 .4rem; }
   p { margin: 0 0 1rem; }
 
@@ -82,6 +92,12 @@
     border-radius: .7rem; padding: 1.35rem 1.5rem; margin: 1rem 0;
   }
   .card p:last-child { margin-bottom: 0; }
+  .card h3 { margin-top: 0; font-size: 1.05rem; }
+
+  .grid { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; margin: 1.25rem 0; }
+  .grid .card { margin: 0; }
+  .grid .card p { font-size: .96rem; }
+  @media (max-width: 40rem) { .grid { grid-template-columns: 1fr; } }
 
   ol.steps { padding-left: 1.3rem; margin: 0; }
   ol.steps li { margin-bottom: .7rem; }
@@ -96,18 +112,23 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     background: var(--key-face); border: 1px solid var(--key-edge);
     border-bottom-width: 2px; border-radius: .35em;
-    padding: .1em .42em; font-size: .85em;
+    padding: .1em .42em; font-size: .85em; white-space: nowrap;
   }
 
   .privacy { border-left: 3px solid var(--accent); }
-  .privacy ul { margin: .5rem 0 0; padding-left: 1.2rem; }
-  .privacy li { margin-bottom: .4rem; }
 
-  .table-scroll { overflow-x: auto; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { border-collapse: collapse; width: 100%; font-size: .95rem; }
   th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid var(--line); }
   th { font-weight: 600; }
   td:first-child { white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  caption {
+    text-align: left; font-weight: 600; padding: 1.1rem .7rem .35rem;
+    font-size: .95rem;
+  }
+  .yes { color: var(--good); font-weight: 600; }
+  .no  { color: var(--bad);  font-weight: 600; }
 
   footer {
     margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
@@ -126,8 +147,8 @@
   <header>
     <div class="logo">⌨</div>
     <h1>TapLayer</h1>
-    <p class="tagline">Your home row already has eight keys under your fingers.
-       This gives each of them a second job.</p>
+    <p class="tagline">Every modifier under a finger that is already resting there —
+       on your Mac's keyboard, and on the tablet you are driving it from.</p>
 
     <div class="demo">
       <div class="cap"><span class="letter">a</span><span class="mod">shift</span></div>
@@ -143,39 +164,154 @@
 
     <div class="cta">
       <a class="btn" href="https://github.com/js-commit/taplayer-mac/releases/latest">Download for macOS</a>
-      <p class="sub">
-        Version 1.1.0 · signed and notarized by Apple · macOS 13+<br>
-        <code>sha256 d3c152a8dbdfb68d5ace3c2754ceadd75efcc24ba1f15f5a72398da803289815</code>
-      </p>
+      <p class="sub">Version 1.1.1 · macOS 13+ · free</p>
     </div>
   </header>
 
-  <h2>What it is for</h2>
-  <p>Reaching for <kbd>⌘</kbd> or <kbd>⌥</kbd> means leaving the home row, and on a
-     tablet keyboard it can mean reaching for a modifier that is not there at all.
-     TapLayer puts the modifiers under the fingers already resting on
-     <kbd>a</kbd>&#8202;<kbd>s</kbd>&#8202;<kbd>d</kbd>&#8202;<kbd>f</kbd> and
-     <kbd>j</kbd>&#8202;<kbd>k</kbd>&#8202;<kbd>l</kbd>&#8202;<kbd>;</kbd>. Tap one
-     and you get the letter, exactly as before. Hold it and it becomes a modifier.</p>
+  <p class="lede"><strong>Leave the laptop at home.</strong> Remote into your Mac from an
+     iPad or an Android tablet over <a href="https://jumpdesktop.com/">Jump Desktop</a>
+     and you have your whole desktop in a bag that weighs nothing — except that the
+     keyboard you brought is not really a Mac keyboard. Android will not forward
+     <kbd>⌘</kbd> at all. There is no trackpad on a lot of folio cases. Nothing on a
+     tablet keyboard is where your hands expect it.</p>
+  <p>TapLayer fixes that from the Mac side. It gives the eight home row keys a second
+     job as modifiers, adds a pointer and a scroll wheel you drive from the letter keys,
+     and hands Android back the Command key it refuses to send. It works just as well on
+     the MacBook's own keyboard, so the muscle memory is the same either way.</p>
 
-  <p>It was built for a specific frustration: typing into a Mac from an iPad or
-     Android tablet over <a href="https://jumpdesktop.com/">Jump Desktop</a>. Those
-     keystrokes arrive as synthetic events, which the usual remapping tools never
-     see. TapLayer works at the layer they actually arrive on — and can remap the
-     Mac's own keyboards too, if you want it to.</p>
+  <h2>What it is actually for</h2>
 
-  <h2>Beyond the home row</h2>
-  <p>Three optional layers, each on a key you are already near:</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Android never gives you Command</h3>
+      <p>Android OS swallows the Command key before Jump Desktop can forward it —
+         <kbd>⌘Tab</kbd>, <kbd>⌘C</kbd>, <kbd>⌘Space</kbd>, all dead. You are left with
+         Control and a lot of workarounds. TapLayer puts Command on <kbd>f</kbd> and
+         <kbd>j</kbd>, and rewrites the tablet's Alt key into Command too, so the normal
+         Mac shortcut vocabulary comes back. iPadOS is less bad about this, but not by
+         much.</p>
+    </div>
+    <div class="card">
+      <h3>A keyboard with no trackpad, and no mouse to pack</h3>
+      <p>Hold <kbd>Esc</kbd> and the letters become a mouse: <kbd>i</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>
+         move the pointer with acceleration, <kbd>f</kbd> left-clicks, <kbd>r</kbd>
+         right-clicks, <kbd>y</kbd>/<kbd>h</kbd> scroll, <kbd>q</kbd>/<kbd>w</kbd> go back
+         and forward. Enough to actually use a Mac. A Smart Folio without a trackpad
+         stops being a compromise.</p>
+    </div>
+    <div class="card">
+      <h3>Your small keyboard doesn't need QMK or ZMK</h3>
+      <p>Home row mods are normally a firmware feature, and most compact boards ship with
+         firmware you cannot touch. TapLayer does the work on the Mac instead, so any
+         keyboard gets them — a folio case, a cheap 60%, a keyboard that will never see a
+         custom firmware in its life.</p>
+    </div>
+    <div class="card">
+      <h3>Reading, not just typing</h3>
+      <p>Hold <kbd>`</kbd> and the arrow keys become a scroll wheel, horizontal included,
+         accelerating the longer you hold. Long articles and long code files go by
+         without your hand leaving the keyboard, let alone finding a mouse.</p>
+    </div>
+  </div>
+
+  <p>And when you are back at the desk on the MacBook itself, turn on
+     <strong>Remap Local Keyboards</strong> and everything above works there too. The
+     point is that your hands never leave the home row, whichever keyboard is in front
+     of them.</p>
+
+  <h2>The keymap</h2>
+  <p class="sect-note">Fixed for now — one opinionated default set, nothing to configure
+     and nothing to get wrong. Custom layouts are the next thing being built.</p>
+
   <div class="table-scroll">
     <table>
-      <tr><th>Hold</th><th>And you get</th></tr>
-      <tr><td>Space</td><td>Arrows on <kbd>i</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>,
-          page up/down, home/end, F1–F12 on the number row</td></tr>
-      <tr><td>Escape</td><td>Mouse control — move the pointer, click, and go
-          back/forward without leaving the keyboard</td></tr>
-      <tr><td>Backtick</td><td>Scrolling, including horizontal</td></tr>
+      <caption>Home row — tap for the letter, hold for the modifier</caption>
+      <tbody>
+        <tr><td><kbd>a</kbd> <kbd>;</kbd></td><td>Shift</td></tr>
+        <tr><td><kbd>s</kbd> <kbd>l</kbd></td><td>Control</td></tr>
+        <tr><td><kbd>d</kbd> <kbd>k</kbd></td><td>Option</td></tr>
+        <tr><td><kbd>f</kbd> <kbd>j</kbd></td><td>Command</td></tr>
+      </tbody>
     </table>
   </div>
+
+  <div class="table-scroll">
+    <table>
+      <caption>Hold <kbd>Space</kbd> — navigation</caption>
+      <tbody>
+        <tr><td><kbd>i</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd></td><td>↑ ← ↓ →</td></tr>
+        <tr><td><kbd>y</kbd> <kbd>h</kbd></td><td>Page up / page down</td></tr>
+        <tr><td><kbd>u</kbd> <kbd>o</kbd></td><td>Home / End</td></tr>
+        <tr><td><kbd>e</kbd> <kbd>n</kbd></td><td>Return / Escape</td></tr>
+        <tr><td><kbd>f</kbd> <kbd>g</kbd> <kbd>r</kbd> <kbd>c</kbd></td><td><code>/</code> &nbsp; <code>?</code> &nbsp; <code>'</code> &nbsp; <code>_</code></td></tr>
+        <tr><td>number row</td><td>F1–F12 (<kbd>-</kbd> and <kbd>=</kbd> are F11 and F12)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <caption>Hold <kbd>Esc</kbd> — mouse</caption>
+      <tbody>
+        <tr><td><kbd>i</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd></td><td>Move the pointer (accelerates while held)</td></tr>
+        <tr><td><kbd>f</kbd> <kbd>r</kbd></td><td>Left click / right click — double and triple clicks work</td></tr>
+        <tr><td><kbd>y</kbd> <kbd>h</kbd></td><td>Scroll up / down</td></tr>
+        <tr><td><kbd>q</kbd> <kbd>w</kbd></td><td>Browser back / forward</td></tr>
+        <tr><td>arrows, delete</td><td>Same thing, if your keyboard has the cluster</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <caption>Hold <kbd>`</kbd> — scroll wheel</caption>
+      <tbody>
+        <tr><td>↑ ↓ ← →</td><td>Scroll, horizontal included, accelerating while held</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <caption>Odds and ends</caption>
+      <tbody>
+        <tr><td>Option + tap <kbd>Space</kbd></td><td>Delete the word behind the cursor</td></tr>
+        <tr><td>Caps Lock (Android)</td><td>Becomes Escape, since Android eats the real one as Back</td></tr>
+        <tr><td>Alt (Android)</td><td>Becomes Command, automatically, for Android sessions only</td></tr>
+        <tr><td><kbd>Left Ctrl</kbd>+<kbd>Space</kbd>+<kbd>Esc</kbd></td><td>Kill switch — stops the engine from anywhere, including from the tablet</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Why not kanata or Karabiner</h2>
+  <p>Those are good tools and far more configurable than this one. The catch is the
+     layer they work at. They remap physical keyboards by grabbing the HID device
+     underneath — but keystrokes from a tablet never touch HID. Jump Desktop injects
+     them further up, so kanata never sees them, and no amount of configuring changes
+     that. TapLayer sits at the layer they actually arrive on.</p>
+
+  <div class="table-scroll">
+    <table>
+      <tr><th></th><th>TapLayer</th><th>kanata</th></tr>
+      <tr><td>Keys from an iPad or Android over Jump Desktop</td>
+          <td class="yes">works</td><td class="no">never sees them</td></tr>
+      <tr><td>The Mac's own keyboards</td>
+          <td class="yes">works</td><td class="yes">works</td></tr>
+      <tr><td>What you install</td><td>one app</td>
+          <td>kanata, plus Karabiner's DriverKit virtual keyboard driver</td></tr>
+      <tr><td>Permissions to grant</td><td>Accessibility</td>
+          <td>a driver extension, Input Monitoring, and Accessibility — the last two
+              through a foreground priming dance, because a root daemon cannot raise
+              its own prompts</td></tr>
+      <tr><td>Runs as</td><td>you, one process</td><td>root, as a LaunchDaemon</td></tr>
+      <tr><td>Setup time</td><td>a minute</td><td>an afternoon, honestly</td></tr>
+      <tr><td>Custom keymaps</td><td>not yet — coming</td>
+          <td class="yes">yes, and it is genuinely good at it</td></tr>
+    </table>
+  </div>
+  <p>If you only ever type on the Mac's built-in keyboard and you want a fully custom
+     layout, kanata is worth the afternoon. If you want home row mods to just be there,
+     on whatever keyboard you happen to be holding, this is the smaller thing.</p>
 
   <h2>Install</h2>
   <div class="card">
@@ -191,42 +327,29 @@
     </ol>
   </div>
   <p>It adds itself as a login item on first launch, so it is there after a reboot.
-     Turn that off in the same menu.</p>
+     Turn that off in the same menu. If you change your mind mid-sentence, the kill
+     switch is <kbd>Left Ctrl</kbd>+<kbd>Space</kbd>+<kbd>Esc</kbd> — it works from the
+     tablet too. Quit is always in the menu.</p>
 
-  <h3>If you change your mind mid-sentence</h3>
-  <p>The kill switch is <kbd>Left Ctrl</kbd>&#8202;+&#8202;<kbd>Space</kbd>&#8202;+&#8202;<kbd>Esc</kbd>,
-     which stops the engine from anywhere, including from the tablet. Quit is also
-     always in the menu.</p>
-
-  <h2>What it does with your keystrokes</h2>
+  <h2>Privacy</h2>
   <div class="card privacy">
-    <p>It is a keyboard remapper, so it sees what you type. That is worth being
-       precise about:</p>
-    <ul>
-      <li><strong>It never records what you type.</strong> The keystroke-logging
-          diagnostics used during development are not compiled into this build —
-          it refuses those options outright rather than merely defaulting them off.</li>
-      <li><strong>It has no network code.</strong> Nothing is uploaded, because
-          nothing can be.</li>
-      <li><strong>Its log holds events, not text</strong> — connections, layer
-          changes, errors. It is readable from the menu, kept private to your
-          account, and capped in size.</li>
-      <li><strong>Modifiers stand down in password fields.</strong> When macOS
-          signals secure input, the remapping steps aside.</li>
-      <li><strong>Accessibility is the only permission it asks for.</strong> No
-          root, no full disk access, no screen recording.</li>
-    </ul>
+    <p><strong>No network. No keystroke logging.</strong> There is no networking code in
+       the app at all, so nothing can be uploaded even by accident, and the ability to
+       record what you type is not compiled into this build. The log holds events —
+       connections, layer changes, errors — never text, and you can open and read it
+       yourself from the menu. Accessibility is the only permission it asks for: no root,
+       no full disk access, no screen recording. Modifiers also stand down entirely
+       whenever macOS signals a secure input field.</p>
   </div>
 
   <h2>Good to know</h2>
-  <p>Fast typists roll their fingers across the home row, and a naive
-     hold-for-modifier scheme turns that into garbage. TapLayer waits out a short
-     hold, watches for the roll, and resolves the ambiguity before committing —
-     so ordinary prose types normally. If a mod ever feels too eager or too slow,
-     the timings are adjustable.</p>
-  <p>Capitalising many words in a row is the one thing that still feels slower,
-     since every capital waits out the hold. The real <kbd>⇧</kbd> keys are still
-     right there at your pinkies.</p>
+  <p>Fast typists roll their fingers across the home row, and a naive hold-for-modifier
+     scheme turns that into garbage. TapLayer waits out a short hold, watches for the
+     roll, and resolves the ambiguity before committing — so ordinary prose types
+     normally.</p>
+  <p>Capitalising many words in a row is the one thing that still feels slower, since
+     every capital waits out the hold. The real <kbd>⇧</kbd> keys are still right there
+     at your pinkies.</p>
 
   <footer>
     <p>Free and unsupported, shared in case it is useful to someone else.<br>
