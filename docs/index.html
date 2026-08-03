@@ -1,0 +1,239 @@
+<!doctype html>
+<!-- Landing page for the public TapLayer repo. release.sh --site stamps
+     1.1.0, d3c152a8dbdfb68d5ace3c2754ceadd75efcc24ba1f15f5a72398da803289815 and js-commit/taplayer-mac and pushes it to <repo>/docs/.
+     Self-contained on purpose: no fonts, no analytics, no third-party
+     anything. A page advertising a keyboard remapper has no business
+     phoning home, and saying so is easier when it is simply true. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TapLayer — home row mods for macOS</title>
+<meta name="description" content="Hold a s d f j k l ; for modifiers, tap them for letters. Works with iPad and Android keyboards over Jump Desktop.">
+<style>
+  :root {
+    --bg: #fbfbfa;      --fg: #1a1a18;     --muted: #6b6b66;
+    --line: #e3e2dd;    --card: #ffffff;   --accent: #b8532a;
+    --key-face: #fff;   --key-edge: #d6d5cf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16161a;    --fg: #eceae4;     --muted: #9b998f;
+      --line: #2b2b32;  --card: #1d1d22;   --accent: #e08a5f;
+      --key-face: #24242b; --key-edge: #34343d;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #fbfbfa; --fg: #1a1a18; --muted: #6b6b66; --line: #e3e2dd;
+    --card: #ffffff; --accent: #b8532a; --key-face: #fff; --key-edge: #d6d5cf;
+  }
+  :root[data-theme="dark"] {
+    --bg: #16161a; --fg: #eceae4; --muted: #9b998f; --line: #2b2b32;
+    --card: #1d1d22; --accent: #e08a5f; --key-face: #24242b; --key-edge: #34343d;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 17px/1.65 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 47rem; margin: 0 auto; padding: 0 1.5rem 5rem; }
+  a { color: var(--accent); }
+
+  header { padding: 5rem 0 3.5rem; text-align: center; }
+  .logo { font-size: 2.6rem; line-height: 1; margin-bottom: 1rem; }
+  h1 { font-size: 2.6rem; letter-spacing: -0.02em; margin: 0 0 .6rem; font-weight: 640; }
+  .tagline { font-size: 1.2rem; color: var(--muted); margin: 0 auto; max-width: 30rem; }
+
+  /* The keycap row is the whole pitch: one key, two meanings. */
+  .demo {
+    display: flex; gap: .4rem; justify-content: center; flex-wrap: wrap;
+    margin: 2.75rem 0 1rem;
+  }
+  .cap {
+    width: 3.1rem; height: 3.1rem; border-radius: .6rem;
+    background: var(--key-face); border: 1px solid var(--key-edge);
+    box-shadow: 0 2px 0 var(--key-edge);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-weight: 600;
+  }
+  .cap .letter { font-size: 1.15rem; }
+  .cap .mod { font-size: .58rem; color: var(--muted); letter-spacing: .04em;
+              text-transform: uppercase; margin-top: .1rem; }
+  .demo-note { text-align: center; color: var(--muted); font-size: .95rem; margin: 0; }
+
+  .cta { text-align: center; margin: 3rem 0 1rem; }
+  .btn {
+    display: inline-block; background: var(--accent); color: #fff;
+    text-decoration: none; font-weight: 600; font-size: 1.05rem;
+    padding: .85rem 2rem; border-radius: .55rem;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .sub { color: var(--muted); font-size: .9rem; margin-top: .85rem; }
+  .sub code { font-size: .82rem; word-break: break-all; }
+
+  h2 { font-size: 1.35rem; margin: 3.25rem 0 1rem; letter-spacing: -0.01em; }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .4rem; }
+  p { margin: 0 0 1rem; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: .7rem; padding: 1.35rem 1.5rem; margin: 1rem 0;
+  }
+  .card p:last-child { margin-bottom: 0; }
+
+  ol.steps { padding-left: 1.3rem; margin: 0; }
+  ol.steps li { margin-bottom: .7rem; }
+  ol.steps li:last-child { margin-bottom: 0; }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: color-mix(in srgb, var(--fg) 7%, transparent);
+    padding: .12em .38em; border-radius: .28em; font-size: .88em;
+  }
+  kbd {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: var(--key-face); border: 1px solid var(--key-edge);
+    border-bottom-width: 2px; border-radius: .35em;
+    padding: .1em .42em; font-size: .85em;
+  }
+
+  .privacy { border-left: 3px solid var(--accent); }
+  .privacy ul { margin: .5rem 0 0; padding-left: 1.2rem; }
+  .privacy li { margin-bottom: .4rem; }
+
+  .table-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid var(--line); }
+  th { font-weight: 600; }
+  td:first-child { white-space: nowrap; }
+
+  footer {
+    margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: .9rem; text-align: center;
+  }
+  @media (max-width: 30rem) {
+    header { padding-top: 3rem; }
+    h1 { font-size: 2.1rem; }
+    .cap { width: 2.55rem; height: 2.55rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">⌨</div>
+    <h1>TapLayer</h1>
+    <p class="tagline">Your home row already has eight keys under your fingers.
+       This gives each of them a second job.</p>
+
+    <div class="demo">
+      <div class="cap"><span class="letter">a</span><span class="mod">shift</span></div>
+      <div class="cap"><span class="letter">s</span><span class="mod">ctrl</span></div>
+      <div class="cap"><span class="letter">d</span><span class="mod">opt</span></div>
+      <div class="cap"><span class="letter">f</span><span class="mod">cmd</span></div>
+      <div class="cap"><span class="letter">j</span><span class="mod">cmd</span></div>
+      <div class="cap"><span class="letter">k</span><span class="mod">opt</span></div>
+      <div class="cap"><span class="letter">l</span><span class="mod">ctrl</span></div>
+      <div class="cap"><span class="letter">;</span><span class="mod">shift</span></div>
+    </div>
+    <p class="demo-note">Tap for the letter. Hold for the modifier.</p>
+
+    <div class="cta">
+      <a class="btn" href="https://github.com/js-commit/taplayer-mac/releases/latest">Download for macOS</a>
+      <p class="sub">
+        Version 1.1.0 · signed and notarized by Apple · macOS 13+<br>
+        <code>sha256 d3c152a8dbdfb68d5ace3c2754ceadd75efcc24ba1f15f5a72398da803289815</code>
+      </p>
+    </div>
+  </header>
+
+  <h2>What it is for</h2>
+  <p>Reaching for <kbd>⌘</kbd> or <kbd>⌥</kbd> means leaving the home row, and on a
+     tablet keyboard it can mean reaching for a modifier that is not there at all.
+     TapLayer puts the modifiers under the fingers already resting on
+     <kbd>a</kbd>&#8202;<kbd>s</kbd>&#8202;<kbd>d</kbd>&#8202;<kbd>f</kbd> and
+     <kbd>j</kbd>&#8202;<kbd>k</kbd>&#8202;<kbd>l</kbd>&#8202;<kbd>;</kbd>. Tap one
+     and you get the letter, exactly as before. Hold it and it becomes a modifier.</p>
+
+  <p>It was built for a specific frustration: typing into a Mac from an iPad or
+     Android tablet over <a href="https://jumpdesktop.com/">Jump Desktop</a>. Those
+     keystrokes arrive as synthetic events, which the usual remapping tools never
+     see. TapLayer works at the layer they actually arrive on — and can remap the
+     Mac's own keyboards too, if you want it to.</p>
+
+  <h2>Beyond the home row</h2>
+  <p>Three optional layers, each on a key you are already near:</p>
+  <div class="table-scroll">
+    <table>
+      <tr><th>Hold</th><th>And you get</th></tr>
+      <tr><td>Space</td><td>Arrows on <kbd>i</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>,
+          page up/down, home/end, F1–F12 on the number row</td></tr>
+      <tr><td>Escape</td><td>Mouse control — move the pointer, click, and go
+          back/forward without leaving the keyboard</td></tr>
+      <tr><td>Backtick</td><td>Scrolling, including horizontal</td></tr>
+    </table>
+  </div>
+
+  <h2>Install</h2>
+  <div class="card">
+    <ol class="steps">
+      <li>Open the dmg and drag <strong>TapLayer</strong> to Applications.</li>
+      <li>Launch it. A <span aria-hidden="true">⌨</span> icon appears in the menu bar —
+          there is no window and no Dock icon.</li>
+      <li>Tick <strong>TapLayer</strong> in System Settings → Privacy&nbsp;&amp;&nbsp;Security
+          → <strong>Accessibility</strong>. Nothing is remapped until you do; it starts
+          working the moment you flip the switch, no restart.</li>
+      <li>Typing from a tablet? It works immediately. For the Mac's own keyboard,
+          turn on <strong>Remap Local Keyboards</strong> in the menu.</li>
+    </ol>
+  </div>
+  <p>It adds itself as a login item on first launch, so it is there after a reboot.
+     Turn that off in the same menu.</p>
+
+  <h3>If you change your mind mid-sentence</h3>
+  <p>The kill switch is <kbd>Left Ctrl</kbd>&#8202;+&#8202;<kbd>Space</kbd>&#8202;+&#8202;<kbd>Esc</kbd>,
+     which stops the engine from anywhere, including from the tablet. Quit is also
+     always in the menu.</p>
+
+  <h2>What it does with your keystrokes</h2>
+  <div class="card privacy">
+    <p>It is a keyboard remapper, so it sees what you type. That is worth being
+       precise about:</p>
+    <ul>
+      <li><strong>It never records what you type.</strong> The keystroke-logging
+          diagnostics used during development are not compiled into this build —
+          it refuses those options outright rather than merely defaulting them off.</li>
+      <li><strong>It has no network code.</strong> Nothing is uploaded, because
+          nothing can be.</li>
+      <li><strong>Its log holds events, not text</strong> — connections, layer
+          changes, errors. It is readable from the menu, kept private to your
+          account, and capped in size.</li>
+      <li><strong>Modifiers stand down in password fields.</strong> When macOS
+          signals secure input, the remapping steps aside.</li>
+      <li><strong>Accessibility is the only permission it asks for.</strong> No
+          root, no full disk access, no screen recording.</li>
+    </ul>
+  </div>
+
+  <h2>Good to know</h2>
+  <p>Fast typists roll their fingers across the home row, and a naive
+     hold-for-modifier scheme turns that into garbage. TapLayer waits out a short
+     hold, watches for the roll, and resolves the ambiguity before committing —
+     so ordinary prose types normally. If a mod ever feels too eager or too slow,
+     the timings are adjustable.</p>
+  <p>Capitalising many words in a row is the one thing that still feels slower,
+     since every capital waits out the hold. The real <kbd>⇧</kbd> keys are still
+     right there at your pinkies.</p>
+
+  <footer>
+    <p>Free and unsupported, shared in case it is useful to someone else.<br>
+       <a href="https://github.com/js-commit/taplayer-mac/releases">All releases</a> ·
+       <a href="https://github.com/js-commit/taplayer-mac/issues">Report a problem</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
