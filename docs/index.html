@@ -12,7 +12,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TapLayer — make any keyboard QMK-compatible, mouse included</title>
-<meta name="description" content="Home row mods, layers and a pointer you drive from the letters — done on the Mac instead of in firmware, so any keyboard gets them. Native Swift, under a megabyte. Also gives back the Command and Escape keys Android refuses to send over Jump Desktop.">
+<meta name="description" content="Home row mods, layers and a pointer you drive from the letters. It runs on the Mac instead of in firmware, so any keyboard gets them. Native Swift, 400 KB, idles at zero. Also gives back the Command and Escape keys Android won't send over Jump Desktop.">
 <link rel="icon" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <style>
@@ -206,8 +206,8 @@
     <h1>TapLayer</h1>
     <p class="tagline">Make any keyboard QMK-compatible — mouse included.</p>
     <p class="tagline-sub">Home row mods, layers, and a pointer you drive from the
-       letters — done on the Mac instead of in firmware, so the keyboard never has to
-       cooperate. Your MacBook's own keys, or the tablet you are driving it from.</p>
+       letters. It all runs on the Mac, not in firmware, so any keyboard works: your
+       MacBook's, or the tablet you're typing from.</p>
 
     <div class="demo">
       <div class="cap"><span class="letter">a</span><span class="mod">shift</span></div>
@@ -238,67 +238,72 @@
     <h2>Leave the laptop at home.</h2>
     <p>Remote into your Mac from an iPad or an Android tablet over
        <a href="https://jumpdesktop.com/">Jump Desktop</a> and your whole desktop fits in a
-       bag that weighs nothing. The catch is always the keyboard: Android will not send
-       <kbd>⌘</kbd> or <kbd>Esc</kbd> at all, half of these folio cases have no trackpad,
-       and nothing is where your hands expect it.</p>
-    <p>TapLayer fixes all of that from the Mac side — no firmware, no config file, no
-       companion app on the tablet. And it works exactly the same on the MacBook's own
-       keyboard, so you learn it once.</p>
+       bag that weighs nothing. The catch is always the keyboard: Android won't send
+       <kbd>⌘</kbd> or <kbd>Esc</kbd> at all, half of the folio cases out there have no
+       trackpad, and nothing is where your hands expect it.</p>
+    <p>TapLayer fixes all of that from the Mac side: no firmware, no config file, no
+       companion app on the tablet. It works the same on the MacBook's own keyboard, so
+       you learn it once.</p>
   </div>
 
-  <h2><span class="eyebrow">Why you'd want it</span>Four problems, solved</h2>
+  <h2><span class="eyebrow">Features</span>Four problems, solved</h2>
 
   <div class="grid">
     <div class="card">
       <span class="prob">Android eats your keys</span>
       <h3>Command and Escape both come back</h3>
-      <p>Android never forwards Command — <kbd>⌘Tab</kbd>, <kbd>⌘C</kbd>, <kbd>⌘Space</kbd>
-         are simply dead — and it claims <kbd>Esc</kbd> as its own Back button before Jump
-         Desktop ever sees it. TapLayer returns both: Command lands on <kbd>f</kbd> and
-         <kbd>j</kbd>, the tablet's Alt key is rewritten into Command, and
-         <kbd>Caps&nbsp;Lock</kbd> — which Android <em>does</em> forward — becomes your
-         Escape. Hold that same key and you get the mouse layer. iPadOS is less bad about
-         this, but not by much.</p>
+      <p>Android never forwards Command, so <kbd>⌘Tab</kbd>, <kbd>⌘C</kbd> and
+         <kbd>⌘Space</kbd> are dead, and it claims <kbd>Esc</kbd> for its own Back button
+         before Jump Desktop ever sees it. TapLayer hands both back: Command moves to
+         <kbd>f</kbd> and <kbd>j</kbd>, and <kbd>Caps&nbsp;Lock</kbd>, which Android
+         <em>does</em> forward, becomes Escape. iPadOS is better about this. Not much.</p>
     </div>
     <div class="card">
       <span class="prob">No trackpad in the bag</span>
       <h3>A free mouse, hiding in the letters</h3>
-      <p>Hold <kbd>Esc</kbd> and <kbd>i</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> move the
-         pointer with acceleration, <kbd>f</kbd> left-clicks, <kbd>r</kbd> right-clicks,
-         <kbd>y</kbd>/<kbd>h</kbd> scroll, <kbd>q</kbd>/<kbd>w</kbd> go back and forward.
-         A whole mouse, and you already own the hardware. If you carry a
+      <p>Hold <kbd>Esc</kbd> and the letters turn into a pointer:
+         <kbd>i</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd> move it, <kbd>f</kbd> and
+         <kbd>r</kbd> click, <kbd>y</kbd> and <kbd>h</kbd> scroll. A whole mouse, on
+         hardware you already own, which matters if you carry a
          <a href="https://support.apple.com/en-us/108361">Smart Keyboard Folio</a> or any
-         of the countless cases and compact boards without a trackpad, that is one less
-         thing in the bag — and one less thing to reach for.</p>
+         of the countless compact boards without a trackpad. One less thing to reach
+         for.</p>
     </div>
     <div class="card">
       <span class="prob">Firmware you can't touch</span>
       <h3>Home row mods without QMK or ZMK</h3>
       <p>Home row mods are normally a firmware feature, which rules out almost every
          folio case, tablet keyboard and cheap 60% on the market. TapLayer does the work
-         on the Mac instead, so the keyboard does not have to cooperate — or even know.
-         A board that will never see a firmware update behaves like one that just got
-         flashed.</p>
+         on the Mac, so the keyboard never knows: a board that will never see a firmware
+         update behaves like one that just got flashed.</p>
     </div>
     <div class="card">
       <span class="prob">Reading, not typing</span>
-      <h3>…and the free mouse has a scroll wheel</h3>
-      <p>Hold <kbd>`</kbd> and the arrow keys become one — horizontal included, gathering
-         speed the longer you hold. Long articles and long files go past without your
-         hand leaving the keyboard, let alone finding a mouse. That is the part you will
-         use every single day.</p>
+      <h3>The arrow keys become a scroll wheel</h3>
+      <p>Hold <kbd>`</kbd> and the arrows scroll instead, horizontal included, gathering
+         speed the longer you hold. Long articles and long diffs go past without your
+         hand leaving the keyboard.</p>
     </div>
   </div>
 
-  <p>Back at the desk, turn on <strong>Remap Local Keyboards</strong> and every one of
-     those works on the MacBook's built-in keyboard too. The point is that your hands
-     never leave the home row, whichever keyboard is in front of them.</p>
+  <p>Back at the desk, turn on <strong>Remap Local Keyboards</strong> and all of it works
+     on the MacBook's built-in keyboard too. Your hands never leave the home row,
+     whichever keyboard is in front of them.</p>
+
+  <div class="card">
+    <h3>Rolls, and why they don't break it</h3>
+    <p>Fast typing rolls fingers across the home row, and a naive hold-for-modifier
+       scheme turns that into garbage. TapLayer waits out a short hold and watches for
+       the roll before it commits, so ordinary prose types normally. Capitalising several
+       words in a row is the one case that still feels slower, since every capital waits
+       out the hold; the real <kbd>⇧</kbd> keys are still right there.</p>
+  </div>
 
   <h2><span class="eyebrow">Comparison</span>Why not kanata or Karabiner</h2>
-  <p>They are good tools, and more configurable than this one. The catch is the layer
+  <p>They're good tools, and more configurable than this one. The catch is the layer
      they work at: they remap physical keyboards by seizing the HID device underneath,
      and keystrokes from a tablet never touch HID. Jump Desktop injects them further up,
-     so kanata never sees them — and no amount of configuring changes that. TapLayer
+     so kanata never sees them, and no amount of configuring changes that. TapLayer
      sits at the layer they actually arrive on.</p>
 
   <div class="table-scroll">
@@ -317,43 +322,43 @@
       <tr><td>Runs as</td><td>you, one process</td><td>root, as a LaunchDaemon</td></tr>
       <tr><td>Setup time</td><td>a minute</td><td>an afternoon, honestly</td></tr>
       <tr><td>Custom keymaps</td><td>not yet — coming</td>
-          <td class="yes">yes, and it is genuinely good at it</td></tr>
+          <td class="yes">yes, and it's genuinely good at it</td></tr>
     </table>
   </div>
   <p>If you only ever type on the Mac's built-in keyboard and you want a fully custom
      layout, kanata is worth the afternoon. If you want home row mods to just be there,
-     on whatever keyboard you happen to be holding, this is the smaller thing.</p>
+     on whatever keyboard you're holding, this is the smaller thing.</p>
 
-  <h2><span class="eyebrow">Under the hood</span>Native Swift. You will forget it is running.</h2>
+  <h2><span class="eyebrow">Under the hood</span>Native Swift. 400 KB. Idles at zero.</h2>
   <div class="card">
-    <p>One process, written in Swift against AppKit and CoreGraphics — the frameworks
-       already sitting on your Mac. No Electron, no Node, no Python, no bundled runtime
-       and nothing vendored: <code>otool -L</code> on the binary lists Apple's own
-       libraries and nothing else.</p>
+    <p>One process, written in Swift against AppKit and CoreGraphics, the frameworks
+       already sitting on your Mac. No Electron, no Node, no Python, no bundled runtime,
+       nothing vendored: <code>otool -L</code> on the binary lists Apple's own libraries
+       and nothing else.</p>
     <div class="stats">
       <div><b>400 KB</b><span>the entire binary<br>(936 KB installed)</span></div>
       <div><b>0.0%</b><span>CPU while it waits<br>for the next key</span></div>
       <div><b>1</b><span>process — no daemon,<br>no helper, no driver</span></div>
     </div>
     <p>It holds about 30 MB of memory, most of it framework pages every other app is
-       using anyway, and nothing in it polls: between your keystrokes, it is asleep.
-       That is not a brag, it is a requirement. It sits in the path of every key you
-       press, all day, on a machine you also want to get work done on.</p>
+       using anyway, and nothing in it polls. Between your keystrokes, it's asleep. It
+       has to be. It sits in the path of every key you press, all day, on a machine
+       you're also trying to work on.</p>
   </div>
 
-  <h2><span class="eyebrow">Privacy</span>It sees what you type. Here is the deal.</h2>
+  <h2><span class="eyebrow">Privacy</span>It sees everything you type. It keeps none of it.</h2>
   <div class="card privacy">
     <p><strong>No network. No keystroke logging.</strong> There is no networking code in
        the app at all, so nothing can be uploaded even by accident, and the ability to
-       record what you type is not compiled into this build. The log holds events —
-       connections, layer changes, errors — never text, and you can open and read it
+       record what you type isn't compiled into this build. The log holds events
+       (connections, layer changes, errors), never text, and you can open and read it
        yourself from the menu. Accessibility is the only permission it asks for: no root,
-       no full disk access, no screen recording. Modifiers also stand down entirely
-       whenever macOS signals a secure input field.</p>
+       no full disk access, no screen recording. Modifiers stand down entirely whenever
+       macOS signals a secure input field.</p>
   </div>
 
   <h2><span class="eyebrow">Reference</span>The keymap</h2>
-  <p class="sect-note">Fixed for now — one opinionated default set, nothing to configure
+  <p class="sect-note">Fixed for now: one opinionated default set, nothing to configure
      and nothing to get wrong. Custom layouts are the next thing being built.</p>
 
   <div class="table-scroll">
@@ -387,7 +392,7 @@
       <caption>Hold <kbd>Esc</kbd> — mouse</caption>
       <tbody>
         <tr><td><kbd>i</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd></td><td>Move the pointer (accelerates while held)</td></tr>
-        <tr><td><kbd>f</kbd> <kbd>r</kbd></td><td>Left click / right click — double and triple clicks work</td></tr>
+        <tr><td><kbd>f</kbd> <kbd>r</kbd></td><td>Left click / right click (double and triple clicks work)</td></tr>
         <tr><td><kbd>y</kbd> <kbd>h</kbd></td><td>Scroll up / down</td></tr>
         <tr><td><kbd>q</kbd> <kbd>w</kbd></td><td>Browser back / forward</td></tr>
         <tr><td>arrows, delete</td><td>Same thing, if your keyboard has the cluster</td></tr>
@@ -409,9 +414,9 @@
       <caption>Odds and ends</caption>
       <tbody>
         <tr><td>Option + tap <kbd>Space</kbd></td><td>Delete the word behind the cursor</td></tr>
-        <tr><td><kbd>Caps&nbsp;Lock</kbd> (Android)</td><td>Becomes Escape, since Android keeps the real one for Back — so tap it for Escape, hold it for the mouse layer</td></tr>
+        <tr><td><kbd>Caps&nbsp;Lock</kbd> (Android)</td><td>Becomes Escape, since Android keeps the real one for Back. Tap it for Escape, hold it for the mouse layer</td></tr>
         <tr><td>Alt (Android)</td><td>Becomes Command, automatically, for Android sessions only</td></tr>
-        <tr><td><kbd>Left Ctrl</kbd>+<kbd>Space</kbd>+<kbd>Esc</kbd></td><td>Kill switch — stops the engine from anywhere, including from the tablet</td></tr>
+        <tr><td><kbd>Left Ctrl</kbd>+<kbd>Space</kbd>+<kbd>Esc</kbd></td><td>Kill switch. Stops the engine from anywhere, including from the tablet</td></tr>
       </tbody>
     </table>
   </div>
@@ -420,9 +425,9 @@
   <div class="card">
     <ol class="steps">
       <li>Open the dmg and drag <strong>TapLayer</strong> to Applications.</li>
-      <li>Launch it. The same split keycap appears in the menu bar, in miniature —
-          with a green dot beside it whenever the engine is actively remapping
-          someone. There is no window and no Dock icon.</li>
+      <li>Launch it. The same split keycap shows up in the menu bar in miniature, with
+          a green dot beside it whenever it's remapping a keyboard. No window, no Dock
+          icon.</li>
       <li>Tick <strong>TapLayer</strong> in System Settings → Privacy&nbsp;&amp;&nbsp;Security
           → <strong>Accessibility</strong>. Nothing is remapped until you do; it starts
           working the moment you flip the switch, no restart.</li>
@@ -430,22 +435,13 @@
           turn on <strong>Remap Local Keyboards</strong> in the menu.</li>
     </ol>
   </div>
-  <p>It adds itself as a login item on first launch, so it is there after a reboot.
+  <p>It adds itself as a login item on first launch, so it's there after a reboot.
      Turn that off in the same menu. If you change your mind mid-sentence, the kill
-     switch is <kbd>Left Ctrl</kbd>+<kbd>Space</kbd>+<kbd>Esc</kbd> — it works from the
-     tablet too. Quit is always in the menu.</p>
-
-  <h2>Good to know</h2>
-  <p>Fast typists roll their fingers across the home row, and a naive hold-for-modifier
-     scheme turns that into garbage. TapLayer waits out a short hold, watches for the
-     roll, and resolves the ambiguity before committing — so ordinary prose types
-     normally.</p>
-  <p>Capitalising many words in a row is the one thing that still feels slower, since
-     every capital waits out the hold. The real <kbd>⇧</kbd> keys are still right there
-     at your pinkies.</p>
+     switch is <kbd>Left Ctrl</kbd>+<kbd>Space</kbd>+<kbd>Esc</kbd>, and it works from
+     the tablet too. Quit is always in the menu.</p>
 
   <footer>
-    <p>Free and unsupported, shared in case it is useful to someone else.<br>
+    <p>Free and unsupported, shared in case it's useful to someone else.<br>
        <a href="https://github.com/js-commit/taplayer-mac/releases">All releases</a> ·
        <a href="https://github.com/js-commit/taplayer-mac/blob/main/CHANGELOG.md">Changelog</a> ·
        <a href="https://github.com/js-commit/taplayer-mac/issues">Report a problem</a></p>
