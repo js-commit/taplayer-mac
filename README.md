@@ -1,3 +1,5 @@
+<img src="docs/icon.png" alt="" width="104" align="right">
+
 # TapLayer
 
 **Every modifier under a finger that is already resting there — on your Mac's
@@ -136,8 +138,9 @@ get wrong. Custom layouts are the next thing being built.
 
 ## Install
 
-1. Open the dmg, drag **TapLayer** to Applications, launch it. A ⌨ icon appears
-   in the menu bar — no window, no Dock icon.
+1. Open the dmg, drag **TapLayer** to Applications, launch it. The same split
+   keycap appears in the menu bar in miniature, with a green dot beside it
+   whenever the engine is actively remapping someone — no window, no Dock icon.
 2. Tick **TapLayer** in System Settings → Privacy & Security → **Accessibility**.
    Nothing is remapped until you do. It starts working the instant you flip the
    switch — no restart needed.

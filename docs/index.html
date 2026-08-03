@@ -3,13 +3,18 @@
      1.1.1 and js-commit/taplayer-mac and pushes it to <repo>/docs/.
      Self-contained on purpose: no fonts, no analytics, no third-party
      anything. A page advertising a keyboard remapper has no business
-     phoning home, and saying so is easier when it is simply true. -->
+     phoning home, and saying so is easier when it is simply true.
+     The one asset is icon.png, which sits beside this file — release.sh
+     renders it from cgevent/icon.swift, the source the .icns comes from,
+     so the logo here is the icon people will see in their Dock. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TapLayer — home row mods for macOS, including from an iPad or Android tablet</title>
 <meta name="description" content="Hold a s d f j k l ; for modifiers, tap them for letters. Adds a mouse you drive from the keyboard, and gives back the Command and Escape keys Android refuses to send over Jump Desktop.">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 <style>
   :root {
     --bg: #fbfbfa;      --fg: #1a1a18;     --muted: #6b6b66;
@@ -51,7 +56,10 @@
 
   /* ---------------------------------------------------------- hero --- */
   header { padding: 4.5rem 0 1rem; text-align: center; }
-  .logo { font-size: 2.6rem; line-height: 1; margin-bottom: .9rem; }
+  /* The real app icon, not a stand-in glyph — it is what you look for in the
+     Dock and in Spotlight, so it is what the page opens with. The art carries
+     its own margin and shadow, hence no extra padding here. */
+  .logo { width: 7rem; height: 7rem; display: block; margin: 0 auto .6rem; }
   h1 { font-size: 2.9rem; letter-spacing: -0.025em; margin: 0 0 .7rem; font-weight: 660; }
   .tagline { font-size: 1.22rem; color: var(--muted); margin: 0 auto; max-width: 33rem; }
 
@@ -164,6 +172,7 @@
   }
   @media (max-width: 30rem) {
     header { padding-top: 2.75rem; }
+    .logo { width: 5.25rem; height: 5.25rem; }
     h1 { font-size: 2.15rem; }
     .pitch h2 { font-size: 1.5rem; }
     .cap { width: 2.55rem; height: 2.55rem; }
@@ -174,7 +183,7 @@
 <div class="wrap">
 
   <header>
-    <div class="logo">⌨</div>
+    <img class="logo" src="icon.png" width="512" height="512" alt="">
     <h1>TapLayer</h1>
     <p class="tagline">Every modifier under a finger that is already resting there —
        on your Mac's keyboard, and on the tablet you are driving it from.</p>
@@ -370,8 +379,9 @@
   <div class="card">
     <ol class="steps">
       <li>Open the dmg and drag <strong>TapLayer</strong> to Applications.</li>
-      <li>Launch it. A <span aria-hidden="true">⌨</span> icon appears in the menu bar —
-          there is no window and no Dock icon.</li>
+      <li>Launch it. The same split keycap appears in the menu bar, in miniature —
+          with a green dot beside it whenever the engine is actively remapping
+          someone. There is no window and no Dock icon.</li>
       <li>Tick <strong>TapLayer</strong> in System Settings → Privacy&nbsp;&amp;&nbsp;Security
           → <strong>Accessibility</strong>. Nothing is remapped until you do; it starts
           working the moment you flip the switch, no restart.</li>
