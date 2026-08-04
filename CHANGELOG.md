@@ -5,6 +5,15 @@ internal refactors are omitted unless you would notice them. `release.sh` lifts
 the section matching the version being released into the release notes, so this
 file is where those notes are actually authored.
 
+## 1.1.2
+
+- Fixes install on macOS 13, 14, and 15. Earlier downloads were built in a
+  way that made Finder refuse them on anything older than macOS 26 with
+  "You can't use this version of the application". The app now installs and
+  runs on macOS 13.0 (Ventura) and later, as the requirements always said.
+
+Nothing about how keys are remapped changed in this release.
+
 ## 1.1.1
 
 - **Open Log** now follows wherever the running engine's output is really
