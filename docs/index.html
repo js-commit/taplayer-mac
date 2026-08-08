@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- Landing page for the public TapLayer repo. release.sh --site stamps
-     1.2.0 and js-commit/taplayer-mac and pushes it to <repo>/docs/.
+     1.3.0 and js-commit/taplayer-mac and pushes it to <repo>/docs/.
      Self-contained on purpose: no fonts, no analytics, no third-party
      anything. A page advertising a keyboard remapper has no business
      phoning home, and saying so is easier when it is simply true.
@@ -223,7 +223,7 @@
 
     <div class="cta">
       <a class="btn" href="https://github.com/js-commit/taplayer-mac/releases/latest">Download for macOS</a>
-      <p class="sub">Version 1.2.0 · macOS 13+ · free</p>
+      <p class="sub">Version 1.3.0 · macOS 13+ · free</p>
       <ul class="pills">
         <li>No network code</li>
         <li>Records nothing you type</li>
@@ -241,9 +241,9 @@
        bag that weighs nothing. The catch is always the keyboard: Android won't send
        <kbd>⌘</kbd> or <kbd>Esc</kbd> at all, half of the folio cases out there have no
        trackpad, and nothing is where your hands expect it.</p>
-    <p>TapLayer fixes all of that from the Mac side: no firmware, no config file, no
-       companion app on the tablet. It works the same on the MacBook's own keyboard, so
-       you learn it once.</p>
+    <p>TapLayer fixes all of that from the Mac side: no firmware, nothing to configure
+       first, no companion app on the tablet. It works the same on the MacBook's own
+       keyboard, so you learn it once.</p>
   </div>
 
   <h2><span class="eyebrow">Features</span>Four problems, solved</h2>
@@ -321,7 +321,8 @@
               its own prompts</td></tr>
       <tr><td>Runs as</td><td>you, one process</td><td>root, as a LaunchDaemon</td></tr>
       <tr><td>Setup time</td><td>a minute</td><td>an afternoon, honestly</td></tr>
-      <tr><td>Custom keymaps</td><td>not yet — coming</td>
+      <tr><td>Custom keymaps</td><td class="yes">yes — a keyboard-grid editor in
+              Settings, or a hand-editable TOML file</td>
           <td class="yes">yes, and it's genuinely good at it</td></tr>
     </table>
   </div>
@@ -358,8 +359,12 @@
   </div>
 
   <h2><span class="eyebrow">Reference</span>The keymap</h2>
-  <p class="sect-note">Fixed for now: one opinionated default set, nothing to configure
-     and nothing to get wrong. Custom layouts are the next thing being built.</p>
+  <p class="sect-note">One opinionated default set, nothing to configure and nothing to
+     get wrong — until you want to change it. Every key is rebindable: a keyboard-grid
+     editor lives behind Settings → Edit Keymap…, and underneath it is a plain TOML
+     file (<code>~/.config/taplayer/taplayer.toml</code>) you can hand-edit and keep in
+     a dotfiles repo. A broken file never wedges the keyboard — the engine falls back
+     to these defaults and the tray shows an amber dot until you fix it.</p>
 
   <div class="table-scroll">
     <table>

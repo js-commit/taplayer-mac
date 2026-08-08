@@ -25,9 +25,9 @@ that weighs nothing. The catch is always the keyboard: Android won't send `⌘` 
 `Esc` at all, half of the folio cases out there have no trackpad, and nothing is
 where your hands expect it.
 
-TapLayer fixes all of that from the Mac side: no firmware, no config file, no
-companion app on the tablet. It works the same on the MacBook's own keyboard, so
-you learn it once.
+TapLayer fixes all of that from the Mac side: no firmware, nothing to configure
+first, no companion app on the tablet. It works the same on the MacBook's own
+keyboard, so you learn it once.
 
 ### Android eats your keys: Command *and* Escape come back
 
@@ -82,7 +82,7 @@ that. TapLayer sits at the layer they actually arrive on.
 | Permissions to grant | Accessibility | a driver extension, Input Monitoring, and Accessibility — the last two through a foreground priming dance, because a root daemon cannot raise its own prompts |
 | Runs as | you, one process | root, as a LaunchDaemon |
 | Setup time | a minute | an afternoon, honestly |
-| Custom keymaps | not yet — coming | yes, and it's genuinely good at it |
+| Custom keymaps | yes — a keyboard-grid editor in Settings, or a hand-editable TOML file | yes, and it's genuinely good at it |
 
 If you only ever type on the Mac's built-in keyboard and want a fully custom
 layout, kanata is worth the afternoon. If you want home row mods to just be
@@ -109,14 +109,24 @@ you're also trying to work on.
 all, so nothing can be uploaded even by accident, and the ability to record what
 you type isn't compiled into this build. The log holds events (connections,
 layer changes, errors), never text, and you can open and read it yourself from
-the menu. Accessibility is the only permission it asks for: no root, no full disk
-access, no screen recording. Modifiers stand down entirely whenever macOS signals
-a secure input field.
+the menu. The only file it ever writes is the keymap you save from the editor —
+`~/.config/taplayer/taplayer.toml`, yours to read and version. Accessibility is
+the only permission it asks for: no root, no full disk access, no screen
+recording. Modifiers stand down entirely whenever macOS signals a secure input
+field.
 
 ## The keymap
 
-Fixed for now: one opinionated default set, nothing to configure and nothing to
-get wrong. Custom layouts are the next thing being built.
+One opinionated default set, nothing to configure and nothing to get wrong —
+until you want to change it. Then every key is rebindable: a Vial-style
+keyboard-grid editor lives behind **Settings → Edit Keymap…**, and underneath it
+is a plain TOML file (`~/.config/taplayer/taplayer.toml`) you can hand-edit and
+keep in a dotfiles repo instead. `taplayer config show > ~/.config/taplayer/taplayer.toml`
+starts the file from the shipped keymap; `taplayer config validate` checks it
+with line-and-column errors and did-you-mean suggestions. The Android and
+hardware profiles can override any of it per device. A broken file never wedges
+the keyboard — the engine falls back to the defaults below and the tray shows
+an amber dot until you fix it.
 
 **Home row** — tap for the letter, hold for the modifier:
 

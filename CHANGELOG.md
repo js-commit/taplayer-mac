@@ -5,6 +5,39 @@ internal refactors are omitted unless you would notice them. `release.sh` lifts
 the section matching the version being released into the release notes, so this
 file is where those notes are actually authored.
 
+## 1.3.0
+
+- **Every key is rebindable.** Settings → Edit Keymap opens a keyboard grid:
+  click a key, pick what it should do — tapped and held, on the base layer or
+  on any of the three hold layers. Until now the keymap was whatever we
+  decided it was, and the only answer to "I want Escape somewhere else" was
+  no.
+- **The keymap is a file you own.** Everything the editor writes lands in
+  `~/.config/taplayer/taplayer.toml`, plain text, hand-editable, and fine to
+  keep in a dotfiles repo. `taplayer config show` prints the shipped keymap to
+  start from and `taplayer config validate` checks your edits with
+  line-and-column errors. No file means the built-in keymap, exactly as
+  before — nothing to do if you liked it.
+- **A broken keymap can't wedge your keyboard.** If the file doesn't parse,
+  the engine keeps the built-in keymap, the menu-bar icon shows an amber dot,
+  and the menu tells you which line is wrong. Restarting onto a broken file is
+  refused outright rather than done halfway.
+- **Separate keymaps per device.** The iPad, an Android tablet, and your Mac's
+  own keyboard each get their own profile, as tabs in the editor. Bind Caps
+  Lock one way for the tablet and another way at your desk.
+- **Hold and tap timings are adjustable**, in the same window — how long a
+  hold takes to register, and how long after typing home row mods stay out of
+  the way. Previously command-line flags that vanished at every login.
+- **The Android workarounds finally stick.** Caps-as-Escape and
+  Option-as-Command are settings in the keymap file now, so turning one off
+  survives a restart. Set as command-line flags they reverted every login,
+  silently.
+- Fixed: on the mouse layer, browser back and forward could keep firing after
+  you let go of Escape.
+
+Home row tap-versus-hold behaves exactly as it did in 1.2.0. If you never open
+the editor, this release changes nothing about how the app types.
+
 ## 1.2.0
 
 - **A setup window on first launch.** TapLayer now walks you through granting
